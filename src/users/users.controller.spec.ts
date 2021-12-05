@@ -80,6 +80,6 @@ describe('UsersController', () => {
     const result = await controller.remove('1');
     expect(result.userID).toBe(1);
     expect(result.userName).toBe('test');
-    expect(result.email).toBe('emai2');
+    expect(result.email).toBe('email');
   });
 });
