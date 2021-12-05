@@ -1,4 +1,4 @@
-name: test-app
+name: ACC_FUEL_APP_CI
 
 on:
   push:
@@ -22,10 +22,6 @@ jobs:
           node-version: 16.x
       - name: Install Yarn
         run: npm i -g yarn
-      - name: Install docker container
-        run: docker-compose up -d
-      - name: stop container
-        run: docker-compose down
       - name: Install dependencies
         run: yarn
       - name: Dot Env CLI
