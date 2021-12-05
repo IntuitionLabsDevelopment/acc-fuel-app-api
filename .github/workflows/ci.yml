@@ -23,10 +23,9 @@ jobs:
       - name: Dot Env CLI
         run: yarn global add dotenv-cli
       - name: Run linters
-        uses: wearerequired/lint-action@v1
-        with:
-          eslint: true
-          prettier: true
+        run: yarn lint
+      - name: Run Prettier
+        run: yarn prettier
       - name: Test
         run: yarn test
       - name: Push
