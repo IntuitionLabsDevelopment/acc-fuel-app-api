@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TrackTypes {
+  Oval
+  Road
+}
+
+enum carTrackTypes {
+  Road
+  Oval
+  Both
+}
+
+model User {
+  userId          Int    @id @default(autoincrement())
+  userName        String
+  userEmail       String
+}
+
+model Sim {
+  simId           Int    @id @default(autoincrement())
+  simName         String
+  tracks          Track[]
+}
+
+model Track {
+  trackId         Int    @id @default(autoincrement())
+  trackName       String
+  trackLength     Int
+  trackLocation   String
+  trackType       TrackTypes
+  sim             Sim?  @relation(fields: [simId],references: [simId])
+  simId           Int
+}
+
+model CarManufacturer {
+  manufacturerId  Int    @id @default(autoincrement())
+  manufacturerName String
+  cars            Car[]
+}
+
+model Car {
+  carId           Int    @id @default(autoincrement())
+  carManufacturer CarManufacturer @relation(fields: [carManufacturerId],references: [manufacturerId])
+  carManufacturerId Int
+  carName         String
+  carClass        String
+  typesOfTracks   carTrackTypes
+
+}
