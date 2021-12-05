@@ -25,7 +25,7 @@ jobs:
       - name: Run linters
         run: yarn lint
       - name: Run Prettier
-        run: yarn prettier
+        run: yarn format
       - name: Test
         run: yarn test
       - name: Push
