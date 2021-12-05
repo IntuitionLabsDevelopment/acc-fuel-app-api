@@ -4,7 +4,7 @@ on:
   push:
     branches: ['**']
   pull_request:
-    branches: [main]
+    branches: ['**']
 
 jobs:
   test:
@@ -22,6 +22,11 @@ jobs:
         run: yarn
       - name: Dot Env CLI
         run: yarn global add dotenv-cli
+      - name: Run linters
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          prettier: true
       - name: Test
         run: yarn test
       - name: Push
