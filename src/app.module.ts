@@ -7,10 +7,11 @@ import { PrismaService } from './common/prisma.service';
 import { UsersService } from './users/users.service';
 import { TracksModule } from './tracks/tracks.module';
 import { TracksController } from './tracks/tracks.controller';
+import { TracksService } from './tracks/tracks.service';
 
 @Module({
   imports: [UsersModule, TracksModule],
   controllers: [AppController, UsersController, TracksController],
-  providers: [AppService, UsersService, PrismaService],
+  providers: [AppService, UsersService, TracksService, PrismaService],
 })
 export class AppModule {}

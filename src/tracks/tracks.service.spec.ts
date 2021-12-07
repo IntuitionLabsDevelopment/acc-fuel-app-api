@@ -35,6 +35,9 @@ describe('TracksService', () => {
             track: {
               findMany: jest.fn().mockResolvedValue(tracks),
               findUnique: jest.fn().mockResolvedValue(tracks[0]),
+              create: jest.fn().mockResolvedValue(tracks[0]),
+              update: jest.fn().mockResolvedValue(tracks[0]),
+              delete: jest.fn().mockResolvedValue(tracks[0]),
             },
           };
         }
@@ -54,5 +57,39 @@ describe('TracksService', () => {
 
   it('should find unique track by id', async () => {
     expect(await service.findById(1)).toEqual(tracks[0]);
+  });
+
+  it('should create a new track', async () => {
+    const newTrack: Prisma.TrackCreateInput = {
+      trackName: 'Track 3',
+      trackLocation: 'Track 3 location',
+      trackLength: 3,
+      trackType: 'Road',
+      sim: {
+        connect: {
+          simId: 1,
+        },
+      },
+    };
+    expect(await service.create(newTrack)).toEqual(tracks[0]);
+  });
+
+  it('should update a track', async () => {
+    const updatedTrack: Prisma.TrackUpdateInput = {
+      trackName: 'Track 1',
+      trackLocation: 'Track 1 location',
+      trackLength: 1,
+      trackType: 'Road',
+      sim: {
+        connect: {
+          simId: 1,
+        },
+      },
+    };
+    expect(await service.update(1, updatedTrack)).toEqual(tracks[0]);
+  });
+
+  it('should delete a track', async () => {
+    expect(await service.remove(1)).toEqual(tracks[0]);
   });
 });

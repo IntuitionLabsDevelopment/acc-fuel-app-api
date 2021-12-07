@@ -1,22 +1,22 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { TracksService } from './tracks.service';
-import { CreateTrackDto } from './dto/create-track.dto';
+import { Prisma } from '@prisma/client';
 import { UpdateTrackDto } from './dto/update-track.dto';
+import { TracksService } from './tracks.service';
 
 @Controller('tracks')
 export class TracksController {
   constructor(private readonly tracksService: TracksService) {}
 
   @Post()
-  create(@Body() createTrackDto: CreateTrackDto) {
+  create(@Body() createTrackDto: Prisma.TrackCreateInput) {
     return this.tracksService.create(createTrackDto);
   }
 

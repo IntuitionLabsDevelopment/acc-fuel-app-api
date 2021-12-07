@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTrackDto } from './dto/create-track.dto';
-import { UpdateTrackDto } from './dto/update-track.dto';
 import { Prisma, Track } from '@prisma/client';
 import { PrismaService } from '../common/prisma.service';
 
@@ -8,15 +6,15 @@ import { PrismaService } from '../common/prisma.service';
 export class TracksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createTrackDto: CreateTrackDto) {
-    return 'This action adds a new track';
+  async create(createTrackDto: Prisma.TrackCreateInput): Promise<Track> {
+    return this.prisma.track.create({ data: createTrackDto });
   }
 
-  async findAll() {
+  async findAll(): Promise<Track[]> {
     return await this.prisma.track.findMany();
   }
 
-  async findById(id: number) {
+  async findById(id: number): Promise<Track> {
     return this.prisma.track.findUnique({
       where: {
         trackId: id,
@@ -24,11 +22,23 @@ export class TracksService {
     });
   }
 
-  update(id: number, updateTrackDto: UpdateTrackDto) {
-    return `This action updates a #${id} track`;
+  async update(
+    id: number,
+    updateTrackDto: Prisma.TrackUpdateInput,
+  ): Promise<Track> {
+    return this.prisma.track.update({
+      where: {
+        trackId: id,
+      },
+      data: updateTrackDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} track`;
+  async remove(id: number): Promise<Track> {
+    return this.prisma.track.delete({
+      where: {
+        trackId: id,
+      },
+    });
   }
 }
