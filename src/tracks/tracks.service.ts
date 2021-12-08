@@ -27,6 +27,13 @@ export class TracksService {
       where: {
         simId: simId,
       },
+      select: {
+        trackId: true,
+        trackName: true,
+        trackLength: true,
+        simId: false,
+        sim: true,
+      },
     });
   }
 
