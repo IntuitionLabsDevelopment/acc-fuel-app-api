@@ -90,6 +90,6 @@ describe('TracksService', () => {
   });
 
   it('should delete a track', async () => {
-    expect(await service.remove(1)).toEqual(tracks[0]);
+    expect(await service.remove(2)).toEqual(tracks[0]);
   });
 });

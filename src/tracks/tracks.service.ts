@@ -22,6 +22,14 @@ export class TracksService {
     });
   }
 
+  async findBySim(simId: number): Promise<any> {
+    return this.prisma.track.findMany({
+      where: {
+        simId: simId,
+      },
+    });
+  }
+
   async update(
     id: number,
     updateTrackDto: Prisma.TrackUpdateInput,
