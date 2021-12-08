@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { UpdateTrackDto } from './dto/update-track.dto';
@@ -21,8 +22,17 @@ export class TracksController {
   }
 
   @Get()
-  getTracks() {
-    return this.tracksService.findAll();
+  getTracks(@Query('simId') simId?: string) {
+    if (simId) {
+      return this.tracksService.findBySim(+simId);
+    } else {
+      return this.tracksService.findAll();
+    }
+  }
+
+  @Get()
+  getTracksBySim(@Query('simId') simId: string) {
+    return this.tracksService.findBySim(parseInt(simId));
   }
 
   @Get(':id')
