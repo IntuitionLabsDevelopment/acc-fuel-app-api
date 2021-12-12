@@ -22,21 +22,6 @@ export class TracksService {
     });
   }
 
-  async findBySim(simId: number): Promise<any> {
-    return this.prisma.track.findMany({
-      where: {
-        simId: simId,
-      },
-      select: {
-        trackId: true,
-        trackName: true,
-        trackLength: true,
-        simId: false,
-        sim: true,
-      },
-    });
-  }
-
   async update(
     id: number,
     updateTrackDto: Prisma.TrackUpdateInput,
@@ -53,6 +38,17 @@ export class TracksService {
     return this.prisma.track.delete({
       where: {
         trackId: id,
+      },
+    });
+  }
+
+  async findAllBySim() {
+    return this.prisma.trackSims.findMany({
+      include: {
+        track: true,
+      },
+      orderBy: {
+        trackId: 'asc',
       },
     });
   }

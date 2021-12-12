@@ -10,7 +10,6 @@ const tracks: Track[] = [
     trackLocation: 'Track 1 location',
     trackLength: 1,
     trackType: 'Road',
-    simId: 1,
   },
   {
     trackId: 2,
@@ -18,7 +17,6 @@ const tracks: Track[] = [
     trackLocation: 'Track 2 location',
     trackLength: 2,
     trackType: 'Road',
-    simId: 1,
   },
 ];
 
@@ -65,12 +63,8 @@ describe('TracksService', () => {
       trackLocation: 'Track 3 location',
       trackLength: 3,
       trackType: 'Road',
-      sim: {
-        connect: {
-          simId: 1,
-        },
-      },
     };
+
     expect(await service.create(newTrack)).toEqual(tracks[0]);
   });
 
@@ -80,16 +74,11 @@ describe('TracksService', () => {
       trackLocation: 'Track 1 location',
       trackLength: 1,
       trackType: 'Road',
-      sim: {
-        connect: {
-          simId: 1,
-        },
-      },
     };
     expect(await service.update(1, updatedTrack)).toEqual(tracks[0]);
   });
 
   it('should delete a track', async () => {
-    expect(await service.remove(2)).toEqual(tracks[0]);
+    expect(await service.remove(1)).toEqual(tracks[0]);
   });
 });

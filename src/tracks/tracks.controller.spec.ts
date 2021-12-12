@@ -12,7 +12,6 @@ describe('TracksController', () => {
     trackLength: 2.4,
     trackLocation: 'USA',
     trackType: 'Road',
-    simId: 1,
   };
 
   beforeEach(async () => {

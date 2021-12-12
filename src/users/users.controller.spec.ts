@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { User } from '@prisma/client';
+import { UserObject } from './userObject.model';
 
 describe('UsersController', () => {
   let controller: UsersController;
 
-  const userObj: User[] = [
-    { userId: 1, userName: 'test', userEmail: 'email' },
-    { userId: 2, userName: 'test2', userEmail: 'email2' },
+  const userObj: UserObject[] = [
+    { userId: 1, userName: 'test', userEmail: 'email', sims: [1, 2] },
+    { userId: 2, userName: 'test2', userEmail: 'email2', sims: [3, 4] },
   ];
 
   beforeEach(async () => {
@@ -49,7 +49,7 @@ describe('UsersController', () => {
   });
 
   it('should return user by userID', async () => {
-    const result = await controller.findOne('1');
+    const result: UserObject = await controller.findOne('1');
     expect(result.userId).toBe(userObj[0].userId);
     expect(result.userName).toBe(userObj[0].userName);
     expect(result.userEmail).toBe(userObj[0].userEmail);
